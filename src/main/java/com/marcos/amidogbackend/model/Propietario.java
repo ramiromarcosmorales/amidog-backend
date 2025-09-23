@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-import java.util.Objects;
-
 @Entity
 @Table(name = "propietario")
 public class Propietario {
@@ -19,6 +17,10 @@ public class Propietario {
     private String nombre;
 
     protected Propietario() {}
+
+    public Propietario(String nombre) {
+        this.nombre = nombre;
+    }
 
     public Long getId() {
         return id;
