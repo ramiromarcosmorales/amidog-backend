@@ -1,35 +1,27 @@
-package com.marcos.amidogbackend.model;
+package com.marcos.amidogbackend.dto;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
-import java.util.Objects;
-
-@Entity
-@Table(name = "perro")
-public class Perro {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PerroResponse {
     private Long id;
 
     @NotBlank(message = "El nombre no puede estar vacio")
     @Size(max = 80, message = "El nombre no puede superar los 80 caracteres")
-    @Column(nullable = false, length = 80)
     private String nombre;
 
     @Min(value = 0, message = "La edad debe minima es 0")
     @Max(value = 30, message = "La edad maxima es 30")
-    @Column(nullable = false)
     private int edad;
 
     @NotBlank(message = "La desripcion no puede estar vacia")
     @Size(max = 120, message = "La descripcion no puede superar los 120 caracteres")
-    @Column(nullable = false, length = 120)
     private String descripcion;
 
-    protected Perro() {}
-
-    public Perro(String nombre, int edad, String descripcion) {
+    public PerroResponse(Long id, String nombre, int edad, String descripcion) {
+        this.id = id;
         this.nombre = nombre;
         this.edad = edad;
         this.descripcion = descripcion;
@@ -39,7 +31,7 @@ public class Perro {
         return id;
     }
 
-    protected void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -65,18 +57,5 @@ public class Perro {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Perro perro = (Perro) o;
-        return id != null && id.equals(perro.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
     }
 }
